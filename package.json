@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-check --tsconfig ./tsconfig.json && tsc -p tsconfig.node.json"
@@ -17,5 +18,8 @@
     "tslib": "^2.6.3",
     "typescript": "^5.2.2",
     "vite": "^5.2.13"
+  },
+  "dependencies": {
+    "nanostores": "^0.10.3"
   }
 }

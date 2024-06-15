@@ -1,4 +1,4 @@
-﻿const perks = [
+﻿export const perks = [
     {
         special: 'st',
         perks: [
