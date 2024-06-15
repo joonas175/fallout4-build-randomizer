@@ -22,14 +22,14 @@ export const specialsStore = map<SpecialsStore>({
   [Special.LUCK]: 0,
 });
 
-export const increment = (special: Special) => () => {
+export const increment = (special: Special) => {
   const value = specialsStore.get()[special];
   if(value < 10) {
     specialsStore.setKey(special, value + 1);
   }
 }
 
-export const decrement = (special: Special) => () => {
+export const decrement = (special: Special) => {
   const value = specialsStore.get()[special];
   if(value > 0) {
     specialsStore.setKey(special, specialsStore.get()[special] - 1);

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Special } from "../stores/special";
+  import { specialComputedValues, type Special } from "../stores/special";
   import type { Perk } from "../types/perks";
   import PerkContainer from "./PerkContainer.svelte";
 
@@ -13,7 +13,7 @@
 <h3>{ special }</h3>
   <div>
     {#each perks as perk}
-      <PerkContainer perk={perk} />
+      <PerkContainer perk={perk} perkLvl={$specialComputedValues[special]}/>
     {/each }
   </div>
 </div>
