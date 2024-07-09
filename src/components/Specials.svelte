@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { perkSummaries } from "../stores/perks";
   import { Special } from "../stores/special";
   import SpecialContainer from "./SpecialsContainer.svelte";
 
@@ -15,6 +16,15 @@
   <h4>Summary:</h4>
   Required level: <span class="required-level">1</span>
   <ul class="summary">
-
+    {#each Object.entries($perkSummaries) as [perk, summaries]}
+      <li>
+        {perk}
+        <ul>
+          {#each summaries as summary}
+            <li>{summary}</li>
+          {/each}
+        </ul>
+      </li>
+    {/each}
   </ul>
 </div>

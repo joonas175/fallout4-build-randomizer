@@ -27,6 +27,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-bottom: 25vh;
   }
   h3 {
     margin-block: 0 0;

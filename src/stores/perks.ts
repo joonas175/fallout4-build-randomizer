@@ -1,7 +1,7 @@
-import { map } from 'nanostores';
+import { computed, map } from 'nanostores';
 import { perks } from '../../fo4/js/perks.js';
-import type { Perks, SpecialPerks } from '../types/perks.js';
-import { Special } from './special.js';
+import type { Perk, PerkRank, Perks, SpecialPerks } from '../types/perks.js';
+import { Special, specialComputedValues } from './special.js';
 
 const specialMap = {
   'st': Special.STRENGTH,
@@ -42,3 +42,26 @@ export const decrementPerkLevel = (perk: string) => {
     perkLevels.setKey(perk, perkLevels.get()[perk] - 1);
   }
 }
+
+type PerkSummaries = Record<string, string[]>;
+
+export const perkSummaries = computed(perkLevels, (perkLevels) => {
+  return perksMapped.reduce((acc, specialPerks) => {
+    const specialLevel = specialComputedValues.get()[specialPerks.special];
+    for(const perk of specialPerks.perks) {
+      if(perk.rank > specialLevel) {
+        break;
+      }
+      const currentRank = perkLevels[perk.name] ?? 0;
+      if(currentRank > 0) {
+        const summaries: string[] = [];
+        perk.ranked.slice(0, currentRank).forEach((rank) => {
+          summaries.push(rank.description);
+        });
+        acc[perk.name] = summaries;
+      }
+    }
+
+    return acc;
+  }, {} as PerkSummaries);
+});
