@@ -35,6 +35,8 @@ jobs:
         with:
           node-version: 20
       - uses: pnpm/action-setup@v4
+        with:
+          version: 8
       - name: NPM Install
         run: pnpm install
       - name: Build Page
