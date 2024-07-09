@@ -17,6 +17,8 @@
     mouseX = ev.pageX;
     mouseY = ev.pageY;
   }
+
+  const brandImgUrl = new URL(`../fo4/img/brand.jpg`, import.meta.url);
 </script>
 
 <main>
@@ -30,7 +32,7 @@
       <div class="container-fluid">
           <div class="navbar-header">
               <a class="navbar-brand" href="#">
-                  <img alt="Brand" src="../fo4/img/brand.jpg" style="height:20px;width:20px;">
+                  <img alt="Brand" src={brandImgUrl.href} style="height:20px;width:20px;">
               </a>
               <a class="navbar-brand" href="#">
                   Fallout 4 Character Randomizer

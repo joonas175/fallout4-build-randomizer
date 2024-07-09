@@ -2,7 +2,7 @@
   import { decrementPerkLevel, incrementPerkLevel, perkLevels } from "../stores/perks";
   import { currentLvl } from "../stores/level";
   import type { Perk } from "../types/perks";
-    import { editing } from "../stores/editorState";
+  import { editing } from "../stores/editorState";
 
   export let perk: Perk;
   export let specialLvl: number;
@@ -11,10 +11,12 @@
 
   $: unavailableRank = !perk.ranked[currentRank] || $currentLvl < perk.ranked[currentRank].level;
   $: unavailable = specialLvl < perk.rank;
+
+  const imgUrl = new URL(`../../fo4/img/${perk.img}`, import.meta.url);
 </script>
 
 <div class="perk-container">
-  <img src="../../fo4/img/{perk.img}" alt="{perk.name}" class="{ unavailable || currentRank === 0 ? 'unavailable' : '' }">
+  <img src={imgUrl.href} alt="{perk.name}" class="{ unavailable || currentRank === 0 ? 'unavailable' : '' }">
   {#if !unavailable}
     <div class="overlay">
       {#if $editing}
