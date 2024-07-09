@@ -9,7 +9,7 @@
 
   $: currentRank = $perkLevels[perk.name]
 
-  $: unavailableRank = $currentLvl < perk.ranked[currentRank].level;
+  $: unavailableRank = !perk.ranked[currentRank] || $currentLvl < perk.ranked[currentRank].level;
   $: unavailable = specialLvl < perk.rank;
 </script>
 

@@ -3,6 +3,7 @@
   import Specials from './components/Specials.svelte';
   import { currentLvl } from './stores/level';
   import { toggleEditing } from './stores/editorState';
+  import { randomize } from './stores/randomizer';
 </script>
 
 <main>
@@ -26,6 +27,10 @@
               </button>
               <h2>
                 Level {$currentLvl}
+
+                <button class="btn btn-primary" on:click={randomize}>
+                  Randomize {$currentLvl === 0 ? " SPECIALs" : ''}
+                </button>
               </h2>
           </div>
       </div>

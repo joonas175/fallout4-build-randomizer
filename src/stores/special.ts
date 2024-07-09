@@ -10,7 +10,7 @@ export enum Special {
   LUCK = 'Luck'
 }
 
-type SpecialsStore = Record<Special, number>;
+export type SpecialsStore = Record<Special, number>;
 
 export const specialsStore = map<SpecialsStore>({
   [Special.STRENGTH]: 1,
