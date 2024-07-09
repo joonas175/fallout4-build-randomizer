@@ -2,6 +2,7 @@
   import { decrementPerkLevel, incrementPerkLevel, perkLevels } from "../stores/perks";
   import { currentLvl } from "../stores/level";
   import type { Perk } from "../types/perks";
+    import { editing } from "../stores/editorState";
 
   export let perk: Perk;
   export let specialLvl: number;
@@ -16,13 +17,17 @@
   <img src="../../fo4/img/{perk.img}" alt="{perk.name}" class="{ unavailable || currentRank === 0 ? 'unavailable' : '' }">
   {#if !unavailable}
     <div class="overlay">
-      <button class="btn btn-xs btn-danger" disabled={currentRank === 0}  on:click={ () => decrementPerkLevel(perk.name) }>
-        <i class="glyphicon glyphicon-minus"></i>
-      </button>
+      {#if $editing}
+        <button class="btn btn-xs btn-danger" disabled={currentRank === 0}  on:click={ () => decrementPerkLevel(perk.name) }>
+          <i class="glyphicon glyphicon-minus"></i>
+        </button>
+      {/if}
       <b>{currentRank} / {perk.ranked.length}</b>
+      {#if $editing}
       <button class="btn btn-xs btn-success" disabled={unavailableRank} on:click={ () => incrementPerkLevel(perk.name) }>
         <i class="glyphicon glyphicon-plus"></i>
       </button>
+      {/if}
     </div>
   {/if}
   <div class=info>
