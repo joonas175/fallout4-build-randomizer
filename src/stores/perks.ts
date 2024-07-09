@@ -31,5 +31,8 @@ export const incrementPerkLevel = (perk: string) => {
 }
 
 export const decrementPerkLevel = (perk: string) => {
-  perkLevels.setKey(perk, perkLevels.get()[perk] - 1);
+  const lvl = perkLevels.get()[perk];
+  if(lvl > 0) {
+    perkLevels.setKey(perk, perkLevels.get()[perk] - 1);
+  }
 }

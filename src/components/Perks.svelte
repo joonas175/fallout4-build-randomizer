@@ -18,5 +18,6 @@
 <style>
   .perks-container {
     display: flex;
+    justify-content: space-between;
   }
 </style>

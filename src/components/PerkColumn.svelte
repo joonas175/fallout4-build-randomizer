@@ -13,7 +13,7 @@
 <h3>{ special }</h3>
   <div>
     {#each perks as perk}
-      <PerkContainer perk={perk} perkLvl={$specialComputedValues[special]}/>
+      <PerkContainer perk={perk} specialLvl={$specialComputedValues[special]}/>
     {/each }
   </div>
 </div>
@@ -21,6 +21,12 @@
 <style>
   .perk-column {
     flex: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   h3 {
     margin-block: 0 0;

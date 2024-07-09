@@ -13,13 +13,13 @@ export enum Special {
 type SpecialsStore = Record<Special, number>;
 
 export const specialsStore = map<SpecialsStore>({
-  [Special.STRENGTH]: 0,
-  [Special.PERCEPTION]: 0,
-  [Special.ENDURANCE]: 0,
-  [Special.CHARISMA]: 0,
-  [Special.INTELLIGENCE]: 0,
-  [Special.AGILITY]: 0,
-  [Special.LUCK]: 0,
+  [Special.STRENGTH]: 1,
+  [Special.PERCEPTION]: 1,
+  [Special.ENDURANCE]: 1,
+  [Special.CHARISMA]: 1,
+  [Special.INTELLIGENCE]: 1,
+  [Special.AGILITY]: 1,
+  [Special.LUCK]: 1,
 });
 
 export const increment = (special: Special) => {
@@ -31,7 +31,7 @@ export const increment = (special: Special) => {
 
 export const decrement = (special: Special) => {
   const value = specialsStore.get()[special];
-  if(value > 0) {
+  if(value > 1) {
     specialsStore.setKey(special, specialsStore.get()[special] - 1);
   }
 }
