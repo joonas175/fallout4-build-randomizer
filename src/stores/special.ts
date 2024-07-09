@@ -1,4 +1,4 @@
-import { computed, map } from 'nanostores';
+import { atom, computed, map } from 'nanostores';
 
 export enum Special {
   STRENGTH = 'Strength',
@@ -53,9 +53,19 @@ export const toggleBobbleheadFound = (special: Special) => () => {
   bobbleheadsFoundStore.setKey(special, !value);
 }
 
-export const specialComputedValues = computed([specialsStore, bobbleheadsFoundStore], (s, b) => {
+export const imSpecialBook = atom<null | Special>(null);
+
+export const setImSpecialBook = (special: Special) => () => {
+  if(imSpecialBook.get() === special) {
+    imSpecialBook.set(null);
+    return;
+  }
+  imSpecialBook.set(special);
+};
+
+export const specialComputedValues = computed([specialsStore, bobbleheadsFoundStore, imSpecialBook], (s, bobble, book) => {
   return Object.entries(s).reduce((acc, [key, value]) => {
-    acc[key as Special] = value + (b[key as Special] ? 1 : 0);
+    acc[key as Special] = value + (bobble[key as Special] ? 1 : 0) + (book === key ? 1 : 0);
 
     return acc;
   }, {} as Partial<SpecialsStore>) as SpecialsStore;
