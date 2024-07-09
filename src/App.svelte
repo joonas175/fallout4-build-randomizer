@@ -2,7 +2,7 @@
   import Perks from './components/Perks.svelte';
   import Specials from './components/Specials.svelte';
   import { currentLvl } from './stores/level';
-  import { toggleEditing } from './stores/editorState';
+  import { resetAll, toggleEditing } from './stores/editorState';
   import { randomize } from './stores/randomizer';
 </script>
 
@@ -19,7 +19,7 @@
               <a class="navbar-brand" href="#">
                   Fallout 4 Character Randomizer
               </a>
-              <button class="btn btn-danger">
+              <button class="btn btn-danger" on:click={ () => resetAll() }>
                 Reset
               </button>
               <button class="btn btn-warning" on:click={toggleEditing}>

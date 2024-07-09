@@ -19,12 +19,18 @@ export const perksMapped = perks.reduce<Perks>((acc, perk) => {
   return acc;
 }, [] as Perks);
 
-export const perkLevels = map<Record<string, number>>(perks.reduce((acc, perk) => {
+const perksInitial = () => perks.reduce((acc, perk) => {
   perk.perks.forEach(p => {
     acc[p.name] = 0;
   })
   return acc;
-}, {} as Record<string, number>));
+}, {} as Record<string, number>);
+
+export const perkLevels = map<Record<string, number>>(perksInitial());
+
+export const resetPerkLevels = () => {
+  perkLevels.set(perksInitial());
+};
 
 export const incrementPerkLevel = (perk: string) => {
   perkLevels.setKey(perk, perkLevels.get()[perk] + 1);

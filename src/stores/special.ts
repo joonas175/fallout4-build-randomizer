@@ -12,7 +12,7 @@ export enum Special {
 
 export type SpecialsStore = Record<Special, number>;
 
-export const specialsStore = map<SpecialsStore>({
+const initialSpecials = () => ({
   [Special.STRENGTH]: 1,
   [Special.PERCEPTION]: 1,
   [Special.ENDURANCE]: 1,
@@ -21,6 +21,12 @@ export const specialsStore = map<SpecialsStore>({
   [Special.AGILITY]: 1,
   [Special.LUCK]: 1,
 });
+
+export const specialsStore = map<SpecialsStore>(initialSpecials());
+
+export const resetSpecials = () => {
+  specialsStore.set(initialSpecials());
+}
 
 export const increment = (special: Special) => {
   const value = specialsStore.get()[special];
@@ -38,7 +44,7 @@ export const decrement = (special: Special) => {
 
 type SpecialBobbleheadsStore = Record<Special, boolean>;
 
-export const bobbleheadsFoundStore = map<SpecialBobbleheadsStore>({
+const specialBobbleheadsInitial = () => ({
   [Special.STRENGTH]: false,
   [Special.PERCEPTION]: false,
   [Special.ENDURANCE]: false,
@@ -46,16 +52,22 @@ export const bobbleheadsFoundStore = map<SpecialBobbleheadsStore>({
   [Special.INTELLIGENCE]: false,
   [Special.AGILITY]: false,
   [Special.LUCK]: false,
-})
+});
+
+export const bobbleheadsFoundStore = map<SpecialBobbleheadsStore>(specialBobbleheadsInitial())
 
 export const toggleBobbleheadFound = (special: Special) => () => {
   const value = bobbleheadsFoundStore.get()[special];
   bobbleheadsFoundStore.setKey(special, !value);
 }
 
+export const resetBobbleheads = () => {
+  bobbleheadsFoundStore.set(specialBobbleheadsInitial());
+}
+
 export const imSpecialBook = atom<null | Special>(null);
 
-export const setImSpecialBook = (special: Special) => () => {
+export const setImSpecialBook = (special: Special | null) => () => {
   if(imSpecialBook.get() === special) {
     imSpecialBook.set(null);
     return;
