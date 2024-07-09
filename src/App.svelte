@@ -9,17 +9,28 @@
   onMount(() => {
     init();
   });
+
+  let mouseX = 0;
+  let mouseY = 0;
+
+  const setMousePosition = (ev: MouseEvent) => {
+    mouseX = ev.pageX;
+    mouseY = ev.pageY;
+  }
 </script>
 
 <main>
   <a href="https://github.com/mmartinx/mmartinx.github.io/">
     Forked from mmartinx
   </a>
+  <a style="float: right;" href="https://joonas.codes">
+    Forked by joonas.codes
+  </a>
   <nav class="navbar navbar-default">
       <div class="container-fluid">
           <div class="navbar-header">
               <a class="navbar-brand" href="#">
-                  <img alt="Brand" src="img/brand.jpg" style="height:20px;width:20px;">
+                  <img alt="Brand" src="../fo4/img/brand.jpg" style="height:20px;width:20px;">
               </a>
               <a class="navbar-brand" href="#">
                   Fallout 4 Character Randomizer
@@ -42,7 +53,12 @@
 
                 <div class="save-container">
                   Save automatically
-                  <input type="checkbox" checked={ $saveAutomatically } on:change={ toggleSaveAutomatically }/>
+                  <input id="save-toggle" type="checkbox" role="button" checked={ $saveAutomatically } 
+                    on:change={ toggleSaveAutomatically } on:mousemove={setMousePosition}
+                  />
+                  {#if !$saveAutomatically}
+                    <div class="warning-box" style={`left: ${mouseX + 15}px; top: ${mouseY + 15}px;`}>Toggling on will erase previous save!</div>
+                  {/if}
                 </div>
               </h2>
           </div>
@@ -65,5 +81,18 @@ h2 {
 
 .save-container {
   font-size: 0.5em;
+}
+
+.warning-box {
+  display: none;
+  position: fixed;
+  background-color: #ff0000;
+  color: #ffffff;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#save-toggle:hover + .warning-box {
+  display: block;
 }
 </style>
