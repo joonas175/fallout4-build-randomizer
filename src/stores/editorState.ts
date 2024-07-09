@@ -9,7 +9,7 @@ export const toggleEditing = () => {
   editing.set(!editing.get());
 };
 
-export const saveAutomatically = atom(true);
+export const saveAutomatically = atom(false);
 
 export const toggleSaveAutomatically = () => {
   saveAutomatically.set(!saveAutomatically.get());
@@ -45,7 +45,6 @@ export const copyBuildURL = () => {
 
 export const init = () => {
   if(window.location.search) {
-    saveAutomatically.set(false);
     const base64 = window.location.search.slice(1);
     window.history.pushState(null, '', '?');
     const urlParams: UrlParams = JSON.parse(atob(base64));
@@ -55,6 +54,7 @@ export const init = () => {
     setImSpecialBook(urlParams.i);
   } else {
     loadLocally();
+    saveAutomatically.set(true);
   }
 };
 
@@ -66,6 +66,8 @@ export const saveLocally = () => {
     i: imSpecialBook.get(),
   }
 
+  console.log(urlParams); 
+
   localStorage.setItem('build', JSON.stringify(urlParams));
 };
 
@@ -76,7 +78,7 @@ export const loadLocally = () => {
     specialsStore.set(urlParams.s);
     perkLevels.set(urlParams.p);
     bobbleheadsFoundStore.set(urlParams.b);
-    setImSpecialBook(urlParams.i);
+    setImSpecialBook(urlParams.i)();
   }
 }
 
@@ -85,3 +87,15 @@ currentLvl.listen(() => {
     saveLocally();
   }
 });
+
+bobbleheadsFoundStore.listen(() => {
+  if(saveAutomatically.get()) {
+    saveLocally();
+  }
+});
+
+imSpecialBook.listen(() => {
+  if(saveAutomatically.get()) {
+    saveLocally();
+  }
+}); 
