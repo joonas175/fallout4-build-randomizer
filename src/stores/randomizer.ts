@@ -1,8 +1,12 @@
+import { atom } from "nanostores";
 import type { Perk } from "../types/perks";
 import { currentLvl } from "./level";
 import { incrementPerkLevel, perkLevels, perksMapped } from "./perks";
 import { increment, specialComputedValues, specialsStore, type SpecialsStore } from "./special";
 
+export const rolls = atom<(Perk | string)[]>([]);
+
+export const lastRoll = atom<null | Perk | string>(null);
 
 export const randomizeSpecials = () => {
   let specialsToSet = Math.abs(Object.values(specialsStore.get()).reduce((acc, value) => acc + value, 0) - 28 + currentLvl.get());
@@ -52,6 +56,13 @@ export const randomize = () => {
     } else {
       console.log('Incrementing perk', randomSpecialOrPerk.name);
       incrementPerkLevel(randomSpecialOrPerk.name);
+    }
+
+    if(randomSpecialOrPerk) {
+      lastRoll.set(randomSpecialOrPerk);
+      const _rolls = rolls.get();
+      _rolls.push(randomSpecialOrPerk);
+      rolls.set(_rolls);
     }
   }
 };

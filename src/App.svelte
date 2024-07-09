@@ -5,6 +5,7 @@
   import { copyBuildURL, init, resetAll, saveAutomatically, toggleEditing, toggleSaveAutomatically } from './stores/editorState';
   import { randomize } from './stores/randomizer';
     import { onMount } from 'svelte';
+    import LatestRollPopup from './components/LatestRollPopup.svelte';
 
   onMount(() => {
     init();
@@ -72,6 +73,7 @@
       <Perks></Perks>
     </div>
   </div>
+  <LatestRollPopup></LatestRollPopup>
 </main>
 
 <style scoped>
